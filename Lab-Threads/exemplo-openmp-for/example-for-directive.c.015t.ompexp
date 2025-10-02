@@ -1,0 +1,121 @@
+
+;; Function main (main, funcdef_no=6, decl_uid=3678, cgraph_uid=7, symbol_order=6)
+
+
+OMP region tree
+
+bb 2: gimple_omp_parallel
+    bb 3: gimple_omp_for
+    bb 4: GIMPLE_OMP_CONTINUE
+    bb 5: GIMPLE_OMP_RETURN
+bb 6: GIMPLE_OMP_RETURN
+
+Added new low gimple function main._omp_fn.0 to callgraph
+Introduced new external node (omp_get_thread_num/8).
+Introduced new external node (__builtin_omp_get_num_threads/9).
+Introduced new external node (__builtin_omp_get_thread_num/10).
+Introduced new external node (pthread_self/11).
+Introduced new external node (printf/12).
+
+;; Function main._omp_fn.0 (main._omp_fn.0, funcdef_no=7, decl_uid=3687, cgraph_uid=8, symbol_order=7)
+
+main._omp_fn.0 (void * .omp_data_i)
+{
+  long int D.3710;
+  long unsigned int D.3709;
+  int i;
+  int D.3707;
+  int D.3706;
+  int D.3705;
+  int tt.2;
+  int q.1;
+  int D.3702;
+  int D.3701;
+  int id;
+
+  <bb 12> :
+
+  <bb 3> :
+  id = omp_get_thread_num ();
+  D.3701 = __builtin_omp_get_num_threads ();
+  D.3702 = __builtin_omp_get_thread_num ();
+  q.1 = 16 / D.3701;
+  tt.2 = 16 % D.3701;
+  if (D.3702 < tt.2)
+    goto <bb 10>; [25.00%]
+  else
+    goto <bb 11>; [75.00%]
+
+  <bb 11> :
+  D.3705 = q.1 * D.3702;
+  D.3706 = D.3705 + tt.2;
+  D.3707 = D.3706 + q.1;
+  if (D.3706 >= D.3707)
+    goto <bb 5>; [INV]
+  else
+    goto <bb 9>; [INV]
+
+  <bb 9> :
+  i = D.3706;
+
+  <bb 4> :
+  D.3709 = pthread_self ();
+  D.3710 = (long int) D.3709;
+  printf ("Thread[%d][%lu]: Working in %lu loop iteration...\n", id, D.3710, i);
+  i = i + 1;
+  if (i < D.3707)
+    goto <bb 4>; [INV]
+  else
+    goto <bb 5>; [INV]
+
+  <bb 5> :
+
+  <bb 6> :
+  return;
+
+  <bb 10> :
+  tt.2 = 0;
+  q.1 = q.1 + 1;
+  goto <bb 11>; [100.00%]
+
+}
+
+
+
+;; Function main (main, funcdef_no=6, decl_uid=3678, cgraph_uid=7, symbol_order=6)
+
+Merging blocks 2 and 13
+Merging blocks 2 and 7
+main ()
+{
+  int D.3699;
+  int D.3697;
+  int D.3698;
+  int tt.2;
+  int q.1;
+  int D.3694;
+  int D.3693;
+  int i;
+  int i;
+  int id;
+  int D.3685;
+
+  <bb 2> :
+  _1 = pthread_self ();
+  _2 = (long int) _1;
+  _3 = omp_get_thread_num ();
+  printf ("Thread[%d][%lu]: Before parallel region...\n", _3, _2);
+  __builtin_GOMP_parallel (main._omp_fn.0, 0B, 4, 0);
+  _4 = pthread_self ();
+  _5 = (long int) _4;
+  _6 = omp_get_thread_num ();
+  printf ("Thread[%d][%lu]: After parallel region...\n", _6, _5);
+  D.3685 = 0;
+
+  <bb 3> :
+<L0>:
+  return D.3685;
+
+}
+
+
